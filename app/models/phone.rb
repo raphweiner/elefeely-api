@@ -1,4 +1,4 @@
-class PhoneNumber < ActiveRecord::Base
+class Phone < ActiveRecord::Base
   attr_accessible :number,
                   :user,
                   :verified

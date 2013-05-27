@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20130527052309) do
 
-  create_table "phone_numbers", :force => true do |t|
+  create_table "phones", :force => true do |t|
     t.string   "number",                        :null => false
     t.boolean  "verified",   :default => false, :null => false
     t.integer  "user_id",                       :null => false
@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(:version => 20130527052309) do
     t.datetime "updated_at",                    :null => false
   end
 
-  add_index "phone_numbers", ["number", "verified"], :name => "index_phone_numbers_on_number_and_verified", :unique => true
-  add_index "phone_numbers", ["verified"], :name => "index_phone_numbers_on_verified"
+  add_index "phones", ["number", "verified"], :name => "index_phones_on_number_and_verified", :unique => true
+  add_index "phones", ["verified"], :name => "index_phones_on_verified"
 
   create_table "users", :force => true do |t|
     t.string   "email",                           :null => false

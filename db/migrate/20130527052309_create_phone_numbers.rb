@@ -1,6 +1,6 @@
 class CreatePhoneNumbers < ActiveRecord::Migration
   def change
-    create_table :phone_numbers do |t|
+    create_table :phones do |t|
       t.string        :number,    :null => false
       t.boolean       :verified,  :null => false, :default => false
       t.references    :user,      :null => false
@@ -8,7 +8,7 @@ class CreatePhoneNumbers < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :phone_numbers, [ :number, :verified ], unique: true
-    add_index :phone_numbers, :verified
+    add_index :phones, [ :number, :verified ], unique: true
+    add_index :phones, :verified
   end
 end
