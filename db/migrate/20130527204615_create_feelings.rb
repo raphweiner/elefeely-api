@@ -10,7 +10,7 @@ class CreateFeelings < ActiveRecord::Migration
     end
 
     add_index :feelings, :user_id
-    add_index :feelings, :source
+    add_index :feelings, [ :source, :event_id ], unique: true
     add_index :feelings, :event_id
   end
 end
