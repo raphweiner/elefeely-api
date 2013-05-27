@@ -1,6 +1,6 @@
 class FeelingsController < ApplicationController
   def create
-    feeling = FeelingParser.new(params[:feeling]).feeling
+    feeling = FeelingParser.new(params).feeling
 
     if feeling.save
       render json: {'success' => feeling }.to_json

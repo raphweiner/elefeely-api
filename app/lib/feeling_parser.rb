@@ -4,7 +4,7 @@ class FeelingParser
               :uid,
               :event_id
 
-  def initialize(params)
+  def initialize(params={})
     @source = params[:source]
     @event_id = params[:event_id]
     @uid = params[:uid]
