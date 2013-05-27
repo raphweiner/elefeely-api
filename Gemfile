@@ -10,4 +10,5 @@ group :development, :test do
   gem 'dotenv-rails',   '~> 0.7.0'
 end
 
+gem 'sorcery',          '~> 0.8.1'
 gem 'resque',           '~> 1.24.1' ,   :require => 'resque/server'
