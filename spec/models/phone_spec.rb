@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Phone do
   subject do
-    @user = User.create(email: 'barbar@laroyaume.com', password: 'mot de cle')
+    @user = User.create!(email: 'barbar@laroyaume.com', password: 'mot de cle')
     Phone.new(user: @user, number: '123145908')
   end
 
