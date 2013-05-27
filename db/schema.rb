@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130527052309) do
+ActiveRecord::Schema.define(:version => 20130527204615) do
+
+  create_table "feelings", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.string   "source",     :null => false
+    t.string   "event_id",   :null => false
+    t.integer  "score",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "feelings", ["event_id"], :name => "index_feelings_on_event_id"
+  add_index "feelings", ["source"], :name => "index_feelings_on_source"
+  add_index "feelings", ["user_id"], :name => "index_feelings_on_user_id"
 
   create_table "phones", :force => true do |t|
     t.string   "number",                        :null => false

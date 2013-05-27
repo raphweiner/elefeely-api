@@ -9,9 +9,17 @@ describe PhonesController do
       end
 
       it 'returns all verified phone numbers in json' do
-        params = 'something'
-        get :verified, params
+        get :verified
         expect(response.body).to eq({'phone_numbers' => ['4157451286']}.to_json)
+      end
+    end
+
+    context 'sad paths' do
+      context 'when there are no numbers' do
+        it 'returns an empty array' do
+          get :verified
+          expect(response.body).to eq({'phone_numbers' => []}.to_json)
+        end
       end
     end
   end
