@@ -10,8 +10,9 @@ describe User do
   end
 
   it 'requires a unique email' do
-    expect { User.create(email: 'rafi@example.com', password: 'yup') }
-      .to change { subject.valid? }.to false
+    expect {
+      User.create(email: 'rafi@example.com', password: 'yup')
+    }.to change { subject.valid? }.to false
   end
 
   it 'requires a password' do
