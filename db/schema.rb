@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130527015536) do
+ActiveRecord::Schema.define(:version => 20130527052309) do
+
+  create_table "phone_numbers", :force => true do |t|
+    t.string   "number",     :null => false
+    t.string   "status",     :null => false
+    t.integer  "user_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "phone_numbers", ["number", "status"], :name => "index_phone_numbers_on_number_and_status", :unique => true
+  add_index "phone_numbers", ["status"], :name => "index_phone_numbers_on_status"
 
   create_table "users", :force => true do |t|
     t.string   "email",                           :null => false

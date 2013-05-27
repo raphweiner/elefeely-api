@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
                   :password,
                   :password_confirmation
 
+  has_one :phone_number
+
   validates_presence_of :password, on: :create
 
   validates :email, presence: true,
