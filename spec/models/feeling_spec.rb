@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe Feeling do
   subject do
+    @source = Source.create!(name: 'twilio')
     @user = User.create!(email: 'barbar@afrique.com', password: 'password')
-    @user.feelings.build(source: 'twilio', event_id: '124', score: 5)
+    @user.feelings.build(source: @source, source_event_id: '124', score: 5)
   end
 
   it 'requires a user' do
@@ -14,12 +15,8 @@ describe Feeling do
     expect { subject.source = nil }.to change { subject.valid? }.to false
   end
 
-  it 'requires a valid source' do
-    expect { subject.source = 'unknown' }.to change { subject.valid? }.to false
-  end
-
-  it 'requires an event_id when source is twilio' do
-    expect { subject.event_id = nil }.to change { subject.valid? }.to false
+  it 'requires an source_event_id when source is twilio' do
+    expect { subject.source_event_id = nil }.to change { subject.valid? }.to false
   end
 
   it 'requires a score' do
