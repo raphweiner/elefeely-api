@@ -1,0 +1,1 @@
+class MockSource < OpenStruct; end

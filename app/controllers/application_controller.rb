@@ -4,7 +4,6 @@ class ApplicationController < ActionController::API
 private
 
   def find_source
-    @source = Source.where(key: params[:source_key]).first ||
-                OpenStruct.new(name: 'unknown', key: 'unknown')
+    @source = Source.where(key: params[:source_key]).first || MockSource.new
   end
 end

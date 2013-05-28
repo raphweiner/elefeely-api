@@ -13,9 +13,7 @@ describe ApplicationController do
 
     context 'sad path' do
       it 'returns a dummy source' do
-        source = controller.send(:find_source)
-        expect(source.name).to eq 'unknown'
-        expect(source.key).to eq 'unknown'
+        expect(controller.send(:find_source)).to be_an_instance_of MockSource
       end
     end
   end
