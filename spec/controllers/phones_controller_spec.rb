@@ -4,7 +4,7 @@ describe PhonesController do
   describe 'GET #index' do
     context 'happy path' do
       before(:all) do
-        @user = User.create!(email: 'barbar@laroyaume.com', password: 'mot-de-cle')
+        @user = User.create!(email: 'barbar@le-royaume.com', password: 'mot-de-cle')
         @phone = Phone.create!(user: @user, number: '4157451286', verified: true)
       end
 

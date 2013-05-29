@@ -14,5 +14,9 @@ group :test do
   gem 'database_cleaner',   '~> 1.0.1'
 end
 
+group :development do
+  gem 'guard-rspec',        '~> 3.0.1'
+end
+
 gem 'sorcery',          '~> 0.8.1'
 gem 'resque',           '~> 1.24.1' ,   :require => 'resque/server'
