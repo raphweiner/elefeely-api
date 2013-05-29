@@ -11,9 +11,7 @@ describe FeelingsController do
                   uid: @phone.number,
                   feeling: {
                              source_event_id: '123',
-                             score: 5
-                           }
-                }
+                             score: 5 }}
 
       controller.stub(:validate_request).and_return(true)
     end
