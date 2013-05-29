@@ -6,7 +6,7 @@ describe UserBySourceUid do
   end
 
   describe '.find' do
-    context 'happy path' do
+    context 'with valid source and existing uid' do
       before(:all) do
         @user = User.create!(email: "rafi@example.com", password: "password")
         @phone = Phone.create!(user: @user, number: "4157451286", verified: true)
@@ -17,15 +17,15 @@ describe UserBySourceUid do
       end
     end
 
-    context 'sad path' do
+    context 'on the sad path with' do
       context 'unknown source' do
-        it 'returns nil' do
+        it 'does not find the user and returns nil' do
           expect(UserBySourceUid.find(source_name: 'unknown', uid:'4157451286')).to eq nil
         end
       end
 
       context 'unknown user' do
-        it 'returns nil' do
+        it 'does not find the user and returns nil' do
           expect(UserBySourceUid.find(source_name: 'unknown', uid:'0000000')).to eq nil
         end
       end

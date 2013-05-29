@@ -10,5 +10,12 @@ class User < ActiveRecord::Base
   validates_presence_of :password, on: :create
   validates :email, presence: true,
                     uniqueness: true
+
+
+  def feel(params)
+    feelings.build(params[:feeling]).tap do |feeling|
+      feeling.source = params[:source]
+    end
+  end
 end
 

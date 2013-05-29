@@ -3,8 +3,7 @@ class FeelingsController < ApplicationController
   before_filter :find_user
 
   def create
-    feeling = @user.feelings.build(params[:feeling])
-    feeling.source = current_source
+    feeling = @user.feel(feeling: params[:feeling], source: current_source)
 
     if feeling.save
       render json: { 'success' => feeling }
