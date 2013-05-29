@@ -9,7 +9,9 @@ describe PhonesController do
       end
 
       it 'returns all verified phone numbers in json' do
+        controller.stub(:validate_request).and_return(true)
         get :index
+
         expect(response.body).to eq({'phone_numbers' => ['4157451286']}.to_json)
       end
     end
@@ -17,7 +19,9 @@ describe PhonesController do
     context 'sad paths' do
       context 'when there are no numbers' do
         it 'returns an empty array' do
+          controller.stub(:validate_request).and_return(true)
           get :index
+
           expect(response.body).to eq({'phone_numbers' => []}.to_json)
         end
       end

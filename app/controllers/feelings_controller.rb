@@ -12,4 +12,13 @@ class FeelingsController < ApplicationController
       render json: { 'errors' => feeling.errors }, status: :bad_request
     end
   end
+
+private
+
+  def find_user
+    @user = UserBySourceUid.find(source_name: current_source.name,
+                                 uid: params[:uid])
+
+    raise ActiveRecord::RecordNotFound if @user.nil?
+  end
 end

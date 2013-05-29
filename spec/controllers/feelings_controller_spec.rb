@@ -8,12 +8,14 @@ describe FeelingsController do
       @phone = Phone.create!(user: @user, number: '4157451286', verified: true)
       @params = {
                   source_key: @source.key,
-                  uid: '4157451286',
+                  uid: @phone.number,
                   feeling: {
                              source_event_id: '123',
                              score: 5
                            }
                 }
+
+      controller.stub(:validate_request).and_return(true)
     end
 
     context 'happy path' do
@@ -29,41 +31,30 @@ describe FeelingsController do
     end
 
     context 'sad path' do
-      context 'user is found but params are incorrect' do
-        it 'responds with correct errors' do
-          post :create, { source_key: @source.key, uid: '4157451286' }
-
-          feeling = @user.feelings.create(source: @source)
-          expect(response.body).to eq({'errors' => feeling.errors}.to_json)
-        end
-      end
-
       context 'user is not found' do
         it 'raises a record not found exception' do
           @params[:uid] = '1234'
+
           expect { post :create, @params }.to raise_error ActiveRecord::RecordNotFound
         end
       end
 
-      # context 'source is unknown' do
-      #   before(:each) do
-      #     params[:source] = 'unknown'
-      #   end
+      context 'user is found but params are incorrect' do
+        it 'responds with bad request code (400)' do
+          post :create, { source_key: @source.key, uid: '4157451286' }
 
-      #   it 'does not create a new feeling' do
-      #     expect { post :create, params }.to_not change { @user.feelings.count }
-      #   end
-      # end
+          expect(response.code).to eq '400'
+        end
+      end
 
-      # context 'source is twilio and phone is not verified' do
-      #   it 'does not create a new feeling' do
-      #     user = User.create!(email: 'somone@example.com', password: 'pass')
-      #     phone = Phone.create!(user: user, number: '123', verified: false)
-      #     params[:uid] = phone.number
+      context 'source is not authorized' do
+        it 'responds with unauthorized code (401)' do
+          controller.rspec_reset
+          post :create, @params
 
-      #     expect { post :create, params }.to_not change { user.feelings.count }
-      #   end
-      # end
+          expect(response.code).to eq '401'
+        end
+      end
     end
   end
 end
