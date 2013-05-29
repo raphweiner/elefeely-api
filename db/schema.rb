@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20130528003021) do
   create_table "sources", :force => true do |t|
     t.string   "name",       :null => false
     t.string   "key",        :null => false
+    t.string   "secret",     :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

@@ -1,21 +1,15 @@
 class FeelingsController < ApplicationController
+  before_filter :validate_request
   before_filter :find_user
 
   def create
     feeling = @user.feelings.build(params[:feeling])
-    feeling.source = @source
+    feeling.source = current_source
 
     if feeling.save
       render json: { 'success' => feeling }
     else
-      render json: { 'errors' => feeling.errors }
+      render json: { 'errors' => feeling.errors }, status: :bad_request
     end
-  end
-
-private
-
-  def find_user
-    @user = UserBySourceUid.find(source_name: @source.name, uid: params[:uid])
-    raise ActiveRecord::RecordNotFound if @user.nil?
   end
 end

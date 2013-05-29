@@ -3,6 +3,7 @@ class CreateSources < ActiveRecord::Migration
     create_table :sources do |t|
       t.string      :name,   null: false
       t.string      :key,    null: false
+      t.string      :secret, null: false
 
       t.timestamps
     end

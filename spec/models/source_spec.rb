@@ -21,8 +21,17 @@ describe Source do
     expect { subject.key = nil }.to change { subject.valid? }.to false
   end
 
-  it 'assigns the key upon creation' do
-    source = Source.new(name: 'hello')
-    expect { source.save }.to change { source.key }
+  it 'requires a secret' do
+    subject.save
+
+    expect { subject.secret = nil }.to change { subject.valid? }.to false
+  end
+
+  it 'assigns key upon creation' do
+    expect { subject.save }.to change { subject.key }
+  end
+
+  it 'assigns secret upon creation' do
+    expect { subject.save }.to change { subject.secret }
   end
 end

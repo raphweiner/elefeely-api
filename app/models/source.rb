@@ -1,11 +1,14 @@
 class Source < ActiveRecord::Base
   attr_accessible :name,
-                  :key
+                  :key,
+                  :secret
 
-  before_validation :set_key, on: :create
+  before_validation :set_credentials, on: :create
 
   validates :key, presence: true,
-                   uniqueness: true
+                  uniqueness: true
+  validates :secret, presence: true,
+                     uniqueness: true
   validates :name, presence: true,
                    uniqueness: true
 
@@ -13,7 +16,8 @@ class Source < ActiveRecord::Base
 
 private
 
-  def set_key
+  def set_credentials
     self.key = SecureRandom.uuid unless name.blank?
+    self.secret = SecureRandom.uuid unless name.blank?
   end
 end
