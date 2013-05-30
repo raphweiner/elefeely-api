@@ -16,7 +16,7 @@ private
 
   def find_user
     @user = UserBySourceUid.find(source_name: current_source.name,
-                                 uid: params[:uid])
+                                 uid: params.delete(:uid))
 
     raise ActiveRecord::RecordNotFound if @user.nil?
   end

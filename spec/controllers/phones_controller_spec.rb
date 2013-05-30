@@ -29,11 +29,10 @@ describe PhonesController do
   end
 
   describe 'POST #create' do
-    before(:all) do
+    before(:each) do
       @user = User.create!(email: 'barbar@le-royaume.com', password: 'mot-de-cle')
+      @params = { number: '1234567890' }
     end
-
-    let(:params) { { number: '1234567890' } }
 
     context 'happy path' do
       before(:each) do
@@ -42,32 +41,31 @@ describe PhonesController do
       end
 
       it 'creates a new phone associated with current user' do
-        post :create, params
+        post :create, @params
 
         expect(@user.phone).to_not be_nil
       end
 
       it 'triggers phone validator to send a validating sms' do
-        PhoneValidator.should_receive(:trigger).with(params[:number])
+        PhoneValidator.should_receive(:trigger).with(@params[:number])
 
-        post :create, params
+        post :create, @params
       end
 
       it 'should return a 200' do
-        post :create, params
+        post :create, @params
         expect(response.code).to eq '200'
       end
 
       it 'should return a json representation of the phone' do
-        # MIKE? how to know phone here?
-        post :create, params
-        expect(response.body).to eq
+        post :create, @params
+        expect(response.body).to eq @user.phone.to_json
       end
     end
 
     context 'sad path' do
       context 'current user is nil' do
-        before(:each) { post :create, params }
+        before(:each) { post :create, @params }
 
         it 'throws bad request' do
           expect(response.code).to eq '400'
