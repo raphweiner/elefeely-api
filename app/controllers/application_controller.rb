@@ -26,7 +26,7 @@ private
   end
 
   def current_source
-    @source ||= Source.where(key: params[:source_key]).first || unauthorized
+    @source ||= Source.where(key: params[:source_key]).first
     puts "source: #{Source.where(key: params[:source_key]).first}, @source: #{@source}"
   end
 
