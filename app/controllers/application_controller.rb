@@ -11,6 +11,10 @@ private
   end
 
   def authorized?
+    puts "Current source: #{current_source.inspect}"
+    puts "Current source: #{current_source.inspect}"
+    puts "secret: #{current_source.try(:secret)}"
+    puts "Source_key: #{params[:source_key]}"
     request_provenance = RequestProvenance.new( path: current_path,
                                                 source: current_source,
                                                 params: params )
