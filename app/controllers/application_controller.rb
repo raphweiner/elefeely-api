@@ -22,8 +22,8 @@ private
   end
 
   def current_source
-    raise "sym: #{params[:source_key].inspect}, string: #{params['source_key'].inspect}"
     @source ||= Source.where(key: params[:source_key]).first || unauthorized
+    puts "source: #{Source.where(key: params[:source_key]).first}, @source: #{@source}"
   end
 
   def unauthorized
