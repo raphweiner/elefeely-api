@@ -22,10 +22,14 @@ private
   end
 
   def current_source
+    raise "sym: #{params[:source_key].inspect}, string: #{params['source_key'].inspect}"
     @source ||= Source.where(key: params[:source_key]).first || unauthorized
   end
 
   def unauthorized
+    # how to return here? need to stop execution
+    # otherwise NoMethodError (undefined method `secret' for ["{\"error\":\"unauthorized\"}"]:Array):
+    # in app/lib/request_provenance.rb:26:in `answer'
     render json: { 'error' => 'unauthorized' }, status: :unauthorized
   end
 end
