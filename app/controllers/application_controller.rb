@@ -7,11 +7,14 @@ class ApplicationController < ActionController::API
 private
 
   def validate_request
+    unauthorized unless authorized?
+  end
+
+  def authorized?
     request_provenance = RequestProvenance.new( path: current_path,
                                                 source: current_source,
                                                 params: params )
-
-    unauthorized unless request_provenance.authorized?
+    request_provenance.authorized?
   end
 
   def current_path

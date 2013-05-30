@@ -1,5 +1,10 @@
 ElefeelyApi::Application.routes.draw do
+
   resources :users
-  get '/phones' => 'phones#index', as: :phones
+
+  resources :phones, only: [ :index, :create ]
+  put '/phones/:number' => 'phones#update'
+
   resources :feelings, only: [ :create ]
+
 end

@@ -5,11 +5,16 @@ class Phone < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :number, presence: true
+  validates :number, presence: true,
+                     length: { is: 10 }
   validates :user_id, presence: true,
                       uniqueness: true
 
   scope :verified, where(verified: true)
+
+  def to_param
+    number
+  end
 
   def self.verified_numbers
     verified.pluck(:number)

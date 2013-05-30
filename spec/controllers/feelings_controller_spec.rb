@@ -13,7 +13,7 @@ describe FeelingsController do
                              source_event_id: '123',
                              score: 5 }}
 
-      controller.stub(:validate_request).and_return(true)
+      controller.stub(authorized?: true)
     end
 
     context 'happy path' do

@@ -3,11 +3,15 @@ require 'spec_helper'
 describe Phone do
   subject do
     @user = User.create!(email: 'barbar@laroyaume.com', password: 'mot de cle')
-    Phone.new(user: @user, number: '123145908')
+    Phone.new(user: @user, number: '1234567890')
   end
 
   it 'requires a number' do
     expect { subject.number = nil }.to change { subject.valid? }.to false
+  end
+
+  it 'requires a number that is 10 chars long' do
+    expect { subject.number = '12345' }.to change { subject.valid? }.to false
   end
 
   it 'requires a user' do
@@ -16,7 +20,7 @@ describe Phone do
 
   it 'requires a unique user' do
     expect {
-      Phone.create(user: @user, number: '123145241412')
+      Phone.create(user: @user, number: '1234567890')
     }.to change { subject.valid? }.to false
   end
 
@@ -34,16 +38,23 @@ describe Phone do
       subject.verified = true
       subject.save
 
-      expect(Phone.user_by_verified_number('123145908')).to eq @user
+      expect(Phone.user_by_verified_number('1234567890')).to eq @user
     end
 
     it 'returns nil when number is unverified' do
       subject.save
-      expect(Phone.user_by_verified_number('123145908')).to eq nil
+
+      expect(Phone.user_by_verified_number('1234567890')).to eq nil
     end
 
     it 'returns nil when number is not found' do
       expect(Phone.user_by_verified_number('00000')).to eq nil
+    end
+  end
+
+  describe '.to_param' do
+    it 'returns number' do
+      expect(subject.to_param).to eq '1234567890'
     end
   end
 end
