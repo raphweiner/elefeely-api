@@ -112,7 +112,7 @@ describe PhonesController do
   end
 
   describe 'PUT #update' do
-    before(:all) do
+    before(:each) do
       @user = User.create!(email: 'barbar@le-royaume.com', password: 'mot-de-cle')
       @phone = Phone.create!(user: @user, number: '1234567890')
     end
