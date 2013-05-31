@@ -55,4 +55,15 @@ describe FeelingsController do
       end
     end
   end
+
+  describe 'GET #index' do
+    it 'responds with all feelings' do
+      source = Source.create!(name: 'twilio')
+      user = User.create!(email: "rafiki@gmail.com", password: 'password')
+      feeling = user.feelings.create!(source: source, score: 5, source_event_id: '123')
+
+      get :index
+      expect(response.body).to eq [feeling].to_json
+    end
+  end
 end

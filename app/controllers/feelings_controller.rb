@@ -1,6 +1,6 @@
 class FeelingsController < ApplicationController
-  before_filter :validate_request
-  before_filter :find_user
+  before_filter :validate_request, except: [ :index ]
+  before_filter :find_user, except: [ :index ]
 
   def create
     feeling = @user.feel(feeling: params[:feeling], source: current_source)
@@ -10,6 +10,10 @@ class FeelingsController < ApplicationController
     else
       render json: { 'errors' => feeling.errors }, status: :bad_request
     end
+  end
+
+  def index
+    render json: Feeling.all
   end
 
 private

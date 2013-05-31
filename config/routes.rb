@@ -5,6 +5,6 @@ ElefeelyApi::Application.routes.draw do
   resources :phones, only: [ :index, :create ]
   put '/phones/:number' => 'phones#update'
 
-  resources :feelings, only: [ :create ]
+  resources :feelings, only: [ :index, :create ]
 
 end
