@@ -20,3 +20,4 @@ end
 
 gem 'sorcery',          '~> 0.8.1'
 gem 'resque',           '~> 1.24.1' ,   :require => 'resque/server'
+gem 'rack-cors',         :require => 'rack/cors', git: 'git://github.com/cyu/rack-cors'
