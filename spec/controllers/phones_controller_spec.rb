@@ -54,11 +54,13 @@ describe PhonesController do
 
       it 'should return a 200' do
         post :create, @params
+
         expect(response.code).to eq '200'
       end
 
       it 'should return a json representation of the phone' do
         post :create, @params
+
         expect(response.body).to eq @user.phone.to_json
       end
     end
@@ -105,6 +107,7 @@ describe PhonesController do
 
         it 'returns errors on phone model' do
           post :create, { number: '0123456789' }
+
           expect(response.body).to eq({"user_id" => ["has already been taken"]}.to_json)
         end
       end
@@ -127,7 +130,11 @@ describe PhonesController do
           put :update, { number: '1234567890' }
           @phone.reload
 
-          expect(@phone.verified).to eq true
+          expect(@phone.verified).to be_true
+
+          # expect {
+          #   put :update, { number: '1234567890' }
+          # }.to change { @phone.verified }.to be_true
         end
       end
 
@@ -142,6 +149,7 @@ describe PhonesController do
 
     context 'with invalid provenance' do
       before(:each) { controller.stub(authorized?: false) }
+
       it 'does not look for the phone' do
         Phone.should_not_receive(:where)
 

@@ -34,9 +34,8 @@ describe User do
     context 'without a source' do
       it 'returns an invalid feeling' do
         subject.save
-        params.delete(:source)
 
-        expect(subject.feel(params)).to_not be_valid
+        expect(subject.feel(params.except(:source))).to_not be_valid
       end
     end
 
