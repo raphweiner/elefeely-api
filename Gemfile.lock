@@ -41,9 +41,6 @@ GEM
     coderay (1.0.9)
     database_cleaner (1.0.1)
     diff-lcs (1.2.4)
-    dotenv (0.7.0)
-    dotenv-rails (0.7.0)
-      dotenv (= 0.7.0)
     erubis (2.7.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
@@ -180,7 +177,6 @@ PLATFORMS
 
 DEPENDENCIES
   database_cleaner (~> 1.0.1)
-  dotenv-rails (~> 0.7.0)
   guard-rspec (~> 3.0.1)
   pg (~> 0.15.1)
   rack-cors!

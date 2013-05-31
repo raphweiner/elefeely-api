@@ -117,7 +117,7 @@ describe PhonesController do
   describe 'PUT #update' do
     before(:each) do
       @user = User.create!(email: 'barbar@le-royaume.com', password: 'mot-de-cle')
-      @phone = Phone.create!(user: @user, number: '1234567890')
+      @phone = Phone.create!(user: @user, number: '1234567890', verified: false)
     end
 
     context 'with valid provenance' do
@@ -126,15 +126,10 @@ describe PhonesController do
       end
 
       context 'when number is found' do
-        it 'updates the phone when number is found' do
+        it 'sets verified to true' do
           put :update, { number: '1234567890' }
-          @phone.reload
 
-          expect(@phone.verified).to be_true
-
-          # expect {
-          #   put :update, { number: '1234567890' }
-          # }.to change { @phone.verified }.to be_true
+          expect(JSON.parse(response.body)['verified']).to be_true
         end
       end
 

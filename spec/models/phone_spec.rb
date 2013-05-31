@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe Phone do
+  let(:user) { User.create!(email: 'barbar@laroyaume.com', password: 'mot de cle') }
+
   subject do
-    @user = User.create!(email: 'barbar@laroyaume.com', password: 'mot de cle')
-    Phone.new(user: @user, number: '1234567890')
+    Phone.new(user: user, number: '1234567890')
   end
 
   it 'requires a number' do
@@ -20,7 +21,7 @@ describe Phone do
 
   it 'requires a unique user' do
     expect {
-      Phone.create(user: @user, number: '1234567890')
+      Phone.create(user: user, number: '1234567890')
     }.to change { subject.valid? }.to false
   end
 
@@ -38,7 +39,7 @@ describe Phone do
       subject.verified = true
       subject.save
 
-      expect(Phone.user_by_verified_number('1234567890')).to eq @user
+      expect(Phone.user_by_verified_number('1234567890')).to eq user
     end
 
     it 'returns nil when number is unverified' do
