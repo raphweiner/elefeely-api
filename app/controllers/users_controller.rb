@@ -6,7 +6,7 @@ class UsersController < ApplicationController
       auto_login(user)
       render json: session
     else
-      render json: user.errors, status: :bad_request
+      render json: user.errors, status: :unprocessable_entity
     end
   end
 end

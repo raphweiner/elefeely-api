@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UsersController do
   describe 'POST #create' do
     context 'with a new email and password' do
-      let(:params ) { { user: {email: 'direngezi@parki.com', password: 'isyan'} } }
+      let(:params ) { { user: {email: 'direngezi@parki.com', password: 'iisyan'} } }
 
       it 'creates a new user' do
         expect {
@@ -22,26 +22,27 @@ describe UsersController do
 
     context 'with an existing email' do
       before(:each) do
-        User.create!(email: "mert@okul.com", password: "pass")
+        User.create!(email: "mert@okul.com", password: "passypass")
       end
 
-      let(:params) { {user: {email: "mert@okul.com", password: "canli"} } }
+      let(:params) { {user: {email: "mert@okul.com", password: "canlicanli"} } }
 
       it 'returns errors on model' do
         post :create, params
         expect(JSON.parse(response.body)).to eq({"email"=>["has already been taken"]})
       end
 
-      it 'returns 400, bad request' do
+      it 'returns 422, unprocessable entity' do
         post :create, params
-        expect(response.code).to eq '400'
+        expect(response.code).to eq '422'
       end
     end
 
-    context 'without all required user parameters' do
+    context 'without required user parameters and with invalid ones' do
       it 'returns errors on model' do
-        post :create, {user: {password: "canli"} }
-        expect(JSON.parse(response.body)).to eq({"email"=>["can't be blank"]})
+        post :create, {user: { password: 'hi' }}
+        expect(JSON.parse(response.body)).to eq({"email" => ["can't be blank"],
+                                                 "password" => ["is too short (minimum is 6 characters)"]})
       end
     end
   end

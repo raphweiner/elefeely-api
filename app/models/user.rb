@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many  :feelings
 
   validates_presence_of :password, on: :create
+  validates :password, length: { minimum: 6 }
   validates :email, presence: true,
                     uniqueness: true
 

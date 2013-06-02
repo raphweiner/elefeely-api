@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   subject do
-    User.new(email: 'rafi@example.com', password: 'omg!')
+    User.new(email: 'rafi@example.com', password: 'omgyup')
   end
 
   it 'requires an email' do
@@ -11,12 +11,16 @@ describe User do
 
   it 'requires a unique email' do
     expect {
-      User.create(email: 'rafi@example.com', password: 'yup')
+      User.create(email: 'rafi@example.com', password: 'yupyup')
     }.to change { subject.valid? }.to false
   end
 
   it 'requires a password' do
     expect { subject.password = nil }.to change { subject.valid? }.to false
+  end
+
+  it 'requires a password longer than 6 chars' do
+    expect { subject.password = 'hihi' }.to change { subject.valid? }.to false
   end
 
   describe '.feel' do
