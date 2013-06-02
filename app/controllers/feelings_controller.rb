@@ -1,5 +1,5 @@
 class FeelingsController < ApplicationController
-  before_filter :validate_request, except: [ :index ]
+  before_filter :require_authenticated_source, except: [ :index ]
   before_filter :find_user, except: [ :index ]
 
   def create

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
 
 private
 
-  def validate_request
+  def require_authenticated_source
     unauthorized unless authorized?
   end
 

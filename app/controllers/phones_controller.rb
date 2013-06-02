@@ -1,5 +1,5 @@
 class PhonesController < ApplicationController
-  before_filter :validate_request, only: [ :index, :update ]
+  before_filter :require_authenticated_source, only: [ :index, :update ]
 
   def index
     phone_numbers = Phone.verified_numbers
