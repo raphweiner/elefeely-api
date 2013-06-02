@@ -3,6 +3,7 @@ class UsersController < ApplicationController
     user = User.new(params[:user])
 
     if user.save
+      UserMailer.welcome_email(user).deliver
       auto_login(user)
       render json: session
     else
