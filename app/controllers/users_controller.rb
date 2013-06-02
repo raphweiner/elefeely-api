@@ -4,8 +4,7 @@ class UsersController < ApplicationController
 
     if user.save
       send_welcome_email(user)
-      auto_login(user)
-      render json: session
+      render json: user
     else
       render json: user.errors, status: :unprocessable_entity
     end

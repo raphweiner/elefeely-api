@@ -17,7 +17,7 @@ class Source < ActiveRecord::Base
 private
 
   def set_credentials
-    self.key = SecureRandom.uuid unless name.blank?
-    self.secret = SecureRandom.uuid unless name.blank?
+    self.key = SecureRandom.uuid
+    self.secret = SecureRandom.uuid
   end
 end

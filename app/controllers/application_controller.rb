@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::API
-  include ActionController::Cookies
-  include ActionController::Helpers
-  include Sorcery::Controller
+
+  def current_user
+
+  end
 
 private
 

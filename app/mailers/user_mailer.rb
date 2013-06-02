@@ -5,11 +5,4 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail to: user.email, subject: "Welcome to Elefeely"
   end
-
-  def reset_password_email(user)
-    @user = user
-    @greeting = "Hi"
-
-    mail to: user.email, subject: 'Elefeely Password Reset'
-  end
 end

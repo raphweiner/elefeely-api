@@ -1,18 +1,19 @@
 require "spec_helper"
 
 describe UserMailer do
-  describe "reset_password_email" do
-    let(:mail) { UserMailer.reset_password_email }
+  let(:user) { User.create!(email: 'test@email.com', password: 'password') }
+
+  describe "welcome_email" do
+    let(:mail) { UserMailer.welcome_email(user) }
 
     it "renders the headers" do
-      mail.subject.should eq("Reset password email")
-      mail.to.should eq(["to@example.org"])
-      mail.from.should eq(["from@example.com"])
+      mail.subject.should eq("Welcome to Elefeely")
+      mail.to.should eq([user.email])
+      mail.from.should eq(["elefeely@gmail.com"])
     end
 
     it "renders the body" do
       mail.body.encoded.should match("Hi")
     end
   end
-
 end

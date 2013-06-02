@@ -23,6 +23,10 @@ describe User do
     expect { subject.password = 'hihi' }.to change { subject.valid? }.to false
   end
 
+  it 'sets token upon creation' do
+    expect { subject.save }.to change { subject.token }
+  end
+
   describe '.feel' do
     let(:params) { { feeling: {score: 4, source_event_id: '123'}, source: Source.create!(name: 'twilio') } }
 

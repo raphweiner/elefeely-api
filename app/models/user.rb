@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_one   :phone
   has_many  :feelings
 
+  before_validation :set_token, on: :create
+
   validates_presence_of :password, on: :create
   validates :password, length: { minimum: 6 }
   validates :email, presence: true,
@@ -17,6 +19,10 @@ class User < ActiveRecord::Base
     feelings.build(params[:feeling]).tap do |feeling|
       feeling.source = params[:source]
     end
+  end
+
+  def set_token
+    self.token = SecureRandom.uuid
   end
 end
 
