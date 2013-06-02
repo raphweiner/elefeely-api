@@ -30,6 +30,6 @@ private
   end
 
   def self.signature(uri)
-    OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha1'), source.secret, uri)
+    OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha512'), source.secret, uri)
   end
 end

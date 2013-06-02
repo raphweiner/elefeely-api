@@ -6,7 +6,7 @@ describe RequestProvenance do
       @timestamp = Time.now.to_i.to_s
       @base_uri = 'http://localhost:3000/phones'
       @uri = @base_uri + "?source_key=#{@source.key}&timestamp=#{@timestamp}"
-      @signature = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha1'), @source.secret, @uri)
+      @signature = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha512'), @source.secret, @uri)
 
       @params = { uri: @base_uri,
                   source: @source,

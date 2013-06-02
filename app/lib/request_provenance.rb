@@ -20,7 +20,7 @@ private
   end
 
   def answer
-    OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha1'),
+    OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha512'),
                             source.secret,
                             uri)
   end
