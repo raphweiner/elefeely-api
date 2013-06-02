@@ -2,7 +2,12 @@ require 'spec_helper'
 
 describe UsersController do
   describe 'POST #create' do
+    before(:each) do
+      controller.stub(:send_welcome_email)
+    end
+
     context 'with a new email and password' do
+
       let(:params ) { { user: {email: 'direngezi@parki.com', password: 'iisyan'} } }
 
       it 'creates a new user' do
