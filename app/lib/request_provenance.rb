@@ -1,10 +1,10 @@
 class RequestProvenance
-  attr_reader :path,
+  attr_reader :base_uri,
               :source,
               :params
 
   def initialize(params)
-    @path = params[:path]
+    @base_uri = params[:uri]
     @source = params[:source]
     @params = params[:params]
   end
@@ -16,7 +16,7 @@ class RequestProvenance
 private
 
   def uri
-    path + "?source_key=#{params[:source_key]}&timestamp=#{params[:timestamp]}"
+    base_uri + "?source_key=#{params[:source_key]}&timestamp=#{params[:timestamp]}"
   end
 
   def answer

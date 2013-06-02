@@ -10,13 +10,13 @@ private
   end
 
   def authorized?
-    request_provenance = RequestProvenance.new( path: current_path,
+    request_provenance = RequestProvenance.new( uri: current_uri,
                                                 source: current_source,
                                                 params: params )
     request_provenance.authorized?
   end
 
-  def current_path
+  def current_uri
     "#{request.protocol}#{request.host_with_port}#{request.path}"
   end
 

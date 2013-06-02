@@ -4,11 +4,11 @@ describe RequestProvenance do
   describe '.authorized?' do
     def instantiate_request
       @timestamp = Time.now.to_i.to_s
-      @path = 'http://localhost:3000/phones'
-      @uri = @path + "?source_key=#{@source.key}&timestamp=#{@timestamp}"
+      @base_uri = 'http://localhost:3000/phones'
+      @uri = @base_uri + "?source_key=#{@source.key}&timestamp=#{@timestamp}"
       @signature = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha1'), @source.secret, @uri)
 
-      @params = { path: @path,
+      @params = { uri: @base_uri,
                   source: @source,
                   params: { timestamp: @timestamp,
                             source_key: @source.key,
