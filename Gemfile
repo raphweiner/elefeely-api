@@ -7,6 +7,7 @@ gem 'pg',           '~> 0.15.1'
 group :development, :test do
   gem 'sqlite3',        '~> 1.3.7'
   gem 'rspec-rails',    '~> 2.0'
+  gem 'dotenv-rails',   '~> 0.7.0'
 end
 
 group :test do
