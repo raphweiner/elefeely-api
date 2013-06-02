@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :require_login, only: [ :me ]
+
   def create
     user = User.new(params[:user])
 
@@ -8,6 +10,10 @@ class UsersController < ApplicationController
     else
       render json: user.errors, status: :unprocessable_entity
     end
+  end
+
+  def me
+    render json: current_user
   end
 
 private

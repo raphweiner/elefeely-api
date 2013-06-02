@@ -13,6 +13,7 @@ class FeelingsController < ApplicationController
   end
 
   def index
+    raise current_user.inspect
     render json: Feeling.all
   end
 

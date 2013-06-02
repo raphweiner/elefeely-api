@@ -1,8 +1,5 @@
 class ApplicationController < ActionController::API
-
-  def current_user
-
-  end
+  include Sorcery::Controller
 
 private
 
@@ -27,5 +24,9 @@ private
 
   def unauthorized
     render json: { 'error' => 'unauthorized' }, status: :unauthorized
+  end
+
+  def find_user_from_token
+    User.where(token: params[:token]).first if params[:token].present?
   end
 end
