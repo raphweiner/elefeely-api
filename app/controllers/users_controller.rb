@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     user = User.new(params[:user])
 
     if user.save
-      # send_welcome_email(user)
+      send_welcome_email(user)
       render json: user
     else
       render json: user.errors, status: :unprocessable_entity
