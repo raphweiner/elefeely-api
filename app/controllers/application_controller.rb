@@ -25,9 +25,6 @@ private
   end
 
   def unauthorized
-    # how to return here? need to stop execution
-    # otherwise NoMethodError (undefined method `secret' for ["{\"error\":\"unauthorized\"}"]:Array):
-    # in app/lib/request_provenance.rb:26:in `answer'
     render json: { 'error' => 'unauthorized' }, status: :unauthorized
   end
 end
