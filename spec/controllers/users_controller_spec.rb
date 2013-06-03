@@ -100,6 +100,11 @@ describe UsersController do
         get :validate_credentials, { user: { email: 'yo@lo.com', password: 'abc' } }
         expect(JSON.parse(response.body)).to eq({'error' => 'wrong email/password combination'})
       end
+
+      it 'returns bad request 400' do
+        get :validate_credentials, { user: { email: 'yo@lo.com', password: 'abc' } }
+        expect(response.code).to eq '400'
+      end
     end
   end
 end

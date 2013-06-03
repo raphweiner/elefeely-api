@@ -12,10 +12,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def me
-    render json: current_user
-  end
-
   def validate_credentials
     user = login(params[:user][:email], params[:user][:password])
 
@@ -25,6 +21,10 @@ class UsersController < ApplicationController
       render json: {'error' => 'wrong email/password combination'},
              status: :bad_request
     end
+  end
+
+  def me
+    render json: current_user
   end
 
 private
