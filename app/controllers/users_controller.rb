@@ -16,6 +16,17 @@ class UsersController < ApplicationController
     render json: current_user
   end
 
+  def validate_credentials
+    user = login(params[:user][:email], params[:user][:password])
+
+    if user
+      render json: user
+    else
+      render json: {'error' => 'wrong email/password combination'},
+             status: :bad_request
+    end
+  end
+
 private
 
   def send_welcome_email(user)

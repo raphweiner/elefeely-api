@@ -51,4 +51,55 @@ describe UsersController do
       end
     end
   end
+
+  describe 'GET #me' do
+    let!(:user) { User.create!(email: 'yo@lo.com', password: 'password') }
+
+    context 'with a valid token' do
+      it 'returns the current user' do
+        get :me, { token: user.token }
+        expect(response.body).to eq user.to_json
+      end
+
+      it 'returns a 200' do
+        get :me, { token: user.token }
+        expect(response.code).to eq '200'
+      end
+    end
+
+    context 'without a valid token' do
+      it 'returns nil' do
+        get :me
+        expect(response.body).to eq nil
+      end
+
+      it 'returns a 400' do
+        get :me
+        expect(response.code).to eq '300'
+      end
+    end
+  end
+
+  describe 'GET #validate_credentials' do
+    let!(:user) { User.create!(email: 'yo@lo.com', password: 'password') }
+
+    context 'with a valid email and password' do
+      it 'returns the user with their token' do
+        get :validate_credentials, { user: { email: 'yo@lo.com', password: 'password' } }
+        expect(JSON.parse(response.body)['token']).to eq user.token
+      end
+
+      it 'returns a 200' do
+        get :validate_credentials, { user: { email: 'yo@lo.com', password: 'password' } }
+        expect(response.code).to eq '200'
+      end
+    end
+
+    context 'with an incorrect password' do
+      it 'returns errors on the user' do
+        get :validate_credentials, { user: { email: 'yo@lo.com', password: 'abc' } }
+        expect(JSON.parse(response.body)).to eq({'error' => 'wrong email/password combination'})
+      end
+    end
+  end
 end

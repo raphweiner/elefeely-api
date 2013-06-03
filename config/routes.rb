@@ -2,6 +2,7 @@ ElefeelyApi::Application.routes.draw do
 
   resources :users, except: [ :show ]
   get '/users/me' => 'users#me'
+  get '/users/login' => 'users#validate_credentials'
 
   resources :phones, only: [ :index, :create ]
   put '/phones/:number' => 'phones#update'
