@@ -4,15 +4,24 @@ source = Source.where(name: 'twilio').first ||
 user = User.where(email: "example@example.com").first ||
          User.create(email: "example@example.com", password: "password")
 
-oldest_time = Time.local(2013, 1, 1)
-newest_time = Time.now
+me = User.where(email: "phyzikz@gmail.com").first ||
+         User.create(email: "phyzikz@gmail.com", password: "password")
 
-(1..100).each do |_|
-  created_at = Time.at(oldest_time + rand * (newest_time.to_f - oldest_time.to_f))
 
-  feeling = user.feelings.build(source: source,
-                                source_event_id: rand(1000000),
-                                score: rand(5) + 1)
-  feeling.created_at = created_at
-  feeling.save
+create_feelings(100, user)
+create_feelings(10, me)
+
+def create_feelings(count, user)
+  oldest_time = Time.local(2013, 1, 1)
+  newest_time = Time.now
+
+  (1..count).each do |_|
+    created_at = Time.at(oldest_time + rand * (newest_time.to_f - oldest_time.to_f))
+
+    feeling = user.feelings.build(source: source,
+                                  source_event_id: rand(1000000),
+                                  score: rand(5) + 1)
+    feeling.created_at = created_at
+    feeling.save
+  end
 end
