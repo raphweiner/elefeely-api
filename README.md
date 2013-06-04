@@ -5,7 +5,7 @@
 This first individual gSchool project imposed a single requirement: create an API and gem to consume it.  I chose to take a service-oriented design approach and built four different components: a primary (rails-api) app, a twilio service (rails-api) app, a gem for the twilio service to communicate with the primary app, and a front-end backbone.js app.
 
 #### Elefeely API
-The primary API connected to a postgres database and provided API endpoints for the Twilio interface app and Backbone app.
+The primary API connects to a postgres database and provided API endpoints for the Twilio interface app and Backbone app.
 
 #### Elefeely Twilio Interface
 
