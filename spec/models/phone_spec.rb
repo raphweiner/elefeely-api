@@ -26,6 +26,10 @@ describe Phone do
     expect { subject.user = nil }.to change { subject.valid? }.to false
   end
 
+  it 'requires a true or false verified value' do
+    expect { subject.verified = nil }.to change { subject.valid? }.to false
+  end
+
   it 'requires a unique user' do
     expect {
       Phone.create(user: user, number: '1234567890')

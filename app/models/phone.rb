@@ -10,6 +10,7 @@ class Phone < ActiveRecord::Base
                      length: { is: 10 }
   validates :user_id, presence: true,
                       uniqueness: true
+  validates :verified, inclusion: { in: [true, false] }
 
   scope :verified, where(verified: true)
 
