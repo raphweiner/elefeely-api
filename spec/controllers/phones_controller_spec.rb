@@ -168,6 +168,11 @@ describe PhonesController do
 
           expect(user.phone).to eq nil
         end
+
+        it 'returns a 200' do
+          delete :destroy, { token: user.token }
+          expect(response.code).to eq '200'
+        end
       end
 
       context 'when the current user does not have a phone' do
