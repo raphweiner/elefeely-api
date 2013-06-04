@@ -23,5 +23,11 @@ class User < ActiveRecord::Base
   def set_token
     self.token = SecureRandom.uuid
   end
+
+  def serializable_hash(options = {})
+    super.tap do |data|
+      data[:phone] = phone.serializable_hash(options) unless phone.nil?
+    end
+  end
 end
 

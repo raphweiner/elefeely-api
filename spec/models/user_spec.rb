@@ -53,4 +53,17 @@ describe User do
       end
     end
   end
+
+  describe '.to_json' do
+    it 'includes phone if associated exists' do
+      subject.save
+      Phone.create!(number: '1231231231', user: subject)
+
+      expect(subject.to_json).to include('phone')
+    end
+
+    it 'does not include phone record if none is associated' do
+      expect(subject.to_json).to_not include('phone')
+    end
+  end
 end
