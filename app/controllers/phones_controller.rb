@@ -21,8 +21,8 @@ class PhonesController < ApplicationController
 
   def update
     phone = Phone.where(number: params[:number]).first || record_not_found
-    puts params
-    if phone.update_attributes(verified: params[:verified])
+
+    if phone.update_attributes(verified: true)
       render json: phone
     else
       render json: phone.errors, status: :bad_request
@@ -31,6 +31,10 @@ class PhonesController < ApplicationController
 
   def destroy
     current_user.phone.destroy
+  end
+
+  def something
+    raise params
   end
 
 private
