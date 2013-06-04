@@ -75,7 +75,7 @@ describe UsersController do
 
       it 'returns a 400' do
         get :me
-        expect(response.code).to eq '300'
+        expect(response.code).to eq '400'
       end
     end
   end

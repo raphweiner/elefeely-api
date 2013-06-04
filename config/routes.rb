@@ -8,5 +8,6 @@ ElefeelyApi::Application.routes.draw do
   put '/phones/:number' => 'phones#update'
 
   resources :feelings, only: [ :index, :create ]
+  get '/feelings/me' => 'feelings#me'
 
 end

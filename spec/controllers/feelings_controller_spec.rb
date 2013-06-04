@@ -66,4 +66,30 @@ describe FeelingsController do
       expect(response.body).to eq [feeling].to_json
     end
   end
+
+  describe 'GET #me' do
+    let!(:user) { User.create!(email: 'yo@lo.com', password: 'password') }
+
+    context 'with a valid token' do
+      it 'responds with feelings of current user' do
+        source = Source.create!(name: 'twilio')
+        user.feelings.create!(score: 1, source_event_id: '1', source: source)
+
+        get :me, {token: user.token}
+        expect(response.body).to eq user.feelings.to_json
+      end
+
+      it 'returns a 200' do
+        get :me, {token: user.token}
+        expect(response.code).to eq '200'
+      end
+    end
+
+    context 'with an invalid token' do
+      it 'returns a 400' do
+        get :me
+        expect(response.code).to eq '400'
+      end
+    end
+  end
 end
