@@ -4,8 +4,11 @@ source = Source.where(name: 'twilio').first ||
 user = User.where(email: "example@example.com").first ||
          User.create(email: "example@example.com", password: "password")
 
+Phone.where(number: '4157455607').first ||
+  Phone.create!(user: user, number: '4157455607')
+
 me = User.where(email: "phyzikz@gmail.com").first ||
-         User.create(email: "phyzikz@gmail.com", password: "password")
+       User.create(email: "phyzikz@gmail.com", password: "password")
 
 
 module Seed
