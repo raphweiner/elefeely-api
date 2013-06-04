@@ -137,7 +137,7 @@ describe PhonesController do
             @phone.verified = true
             @phone.save!
 
-            put :update, { number: '1234567890', verified: false}
+            put :update, { number: '1234567890', verified: false }
 
             expect(JSON.parse(response.body)['verified']).to be_false
           end

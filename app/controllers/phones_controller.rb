@@ -21,7 +21,7 @@ class PhonesController < ApplicationController
 
   def update
     phone = Phone.where(number: params[:number]).first || record_not_found
-
+    puts params
     if phone.update_attributes(verified: params[:verified])
       render json: phone
     else
