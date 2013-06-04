@@ -127,10 +127,33 @@ describe PhonesController do
 
       context 'when number is found' do
         context 'when verified is included in params' do
-          it 'sets verified to true' do
-            put :update, { number: '1234567890' }
+          it 'sets verified to true with {verified: true} in params' do
+            put :update, { number: '1234567890', verified: true }
 
             expect(JSON.parse(response.body)['verified']).to be_true
+          end
+
+          it 'sets verified to false with {verified: false} in params' do
+            @phone.verified = true
+            @phone.save!
+
+            put :update, { number: '1234567890', verified: false }
+
+            expect(JSON.parse(response.body)['verified']).to be_false
+          end
+        end
+
+        context 'when verified is not in params' do
+          it 'returns error message' do
+            put :update, { number: '1234567890'}
+
+            expect(JSON.parse(response.body)).to eq("verified" => ["is not included in the list"])
+          end
+
+          it 'returns 400' do
+            put :update, { number: '1234567890'}
+
+            expect(response.code).to eq '400'
           end
         end
       end
