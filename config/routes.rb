@@ -5,6 +5,7 @@ ElefeelyApi::Application.routes.draw do
   get '/login' => 'users#validate_credentials'
 
   resources :phones, only: [ :index, :create ]
+  delete '/phones/me' => 'phones#destroy'
   put '/phones/:number' => 'phones#update'
 
   resources :feelings, only: [ :index, :create ]

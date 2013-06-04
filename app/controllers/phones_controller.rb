@@ -1,5 +1,6 @@
 class PhonesController < ApplicationController
   before_filter :require_authenticated_source, only: [ :index, :update ]
+  before_filter :require_login, only: [ :destroy ]
 
   def index
     phone_numbers = Phone.verified_numbers
@@ -26,6 +27,10 @@ class PhonesController < ApplicationController
     else
       render json: phone.errors, status: :bad_request
     end
+  end
+
+  def destroy
+    current_user.phone.destroy
   end
 
 private
