@@ -86,9 +86,9 @@ describe FeelingsController do
     end
 
     context 'with an invalid token' do
-      it 'returns a 400' do
+      it 'returns a 401' do
         get :me
-        expect(response.code).to eq '400'
+        expect(response.code).to eq '401'
       end
     end
   end

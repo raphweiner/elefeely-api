@@ -16,9 +16,6 @@ describe UsersController do
         }.to change { User.count }.by 1
       end
 
-      it 'returns the session login cookie'
-        # Need to figure out how to manage CORS cookies with backbone
-
       it 'returns a 200' do
         post :create, params
         expect(response.code).to eq '200'
@@ -70,12 +67,12 @@ describe UsersController do
     context 'without a valid token' do
       it 'returns nil' do
         get :me
-        expect(response.body).to eq nil
+        expect(JSON.parse(response.body)).to eq("error" => "unauthorized")
       end
 
-      it 'returns a 400' do
+      it 'returns a 401' do
         get :me
-        expect(response.code).to eq '400'
+        expect(response.code).to eq '401'
       end
     end
   end

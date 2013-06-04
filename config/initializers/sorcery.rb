@@ -11,7 +11,7 @@ Rails.application.config.sorcery.configure do |config|
   # override the 'not_authenticated' method of course.
   # Default: `:not_authenticated`
   #
-  # config.not_authenticated_action =
+  config.not_authenticated_action = :unauthorized
 
   config.login_sources << :find_user_from_token
 
