@@ -15,6 +15,13 @@ describe Phone do
     expect { subject.number = '12345' }.to change { subject.valid? }.to false
   end
 
+  it 'requires a unique number' do
+    subject.save
+    user = User.create!(email: 'yo@lo.com', password: 'mot de cle')
+
+    expect(Phone.new(user: user, number: '1234567890')).to_not be_valid
+  end
+
   it 'requires a user' do
     expect { subject.user = nil }.to change { subject.valid? }.to false
   end

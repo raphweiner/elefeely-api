@@ -6,6 +6,7 @@ class Phone < ActiveRecord::Base
   belongs_to :user
 
   validates :number, presence: true,
+                     uniqueness: true,
                      length: { is: 10 }
   validates :user_id, presence: true,
                       uniqueness: true
