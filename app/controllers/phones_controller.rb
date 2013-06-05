@@ -33,10 +33,6 @@ class PhonesController < ApplicationController
     current_user.phone.destroy
   end
 
-  def something
-    raise params
-  end
-
 private
 
   def record_not_found
