@@ -1,14 +1,14 @@
 class PhoneValidator
   def self.trigger(number)
     if number.length == 10
-      request(:post, validate_number_uri, body: { number: number })
+      request(:post, verification_number_uri, body: { number: number })
     end
   end
 
 private
 
-  def self.validate_number_uri
-    uri '/validation'
+  def self.verification_number_uri
+    uri '/verification'
   end
 
   def self.request(verb, *params)
