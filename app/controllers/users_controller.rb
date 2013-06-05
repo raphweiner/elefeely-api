@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_login, only: [ :me, :update ]
+  before_filter :require_login, only: [ :me, :update, :destroy ]
 
   def create
     user = User.new(params[:user])
@@ -32,5 +32,9 @@ class UsersController < ApplicationController
     else
       render json: current_user.errors, status: :bad_request
     end
+  end
+
+  def destroy
+    current_user.destroy
   end
 end

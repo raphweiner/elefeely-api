@@ -2,6 +2,7 @@ ElefeelyApi::Application.routes.draw do
 
   post '/users' => 'users#create'
   put '/users' => 'users#update'
+  delete '/users' => 'users#destroy'
   get '/users/me' => 'users#me'
   get '/login' => 'users#validate_credentials'
 

@@ -157,4 +157,27 @@ describe UsersController do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'with a valid token' do
+        let!(:user) { User.create!(email: 'rafi@abc.com', password: '123123') }
+
+      it 'deletes the account' do
+        expect { delete :destroy, {token: user.token} }.to change { User.count }.by -1
+      end
+
+      it 'returns a 200' do
+        delete :destroy, {token: user.token}
+
+        expect(response.code).to eq '200'
+      end
+    end
+
+    context 'with an invalid token' do
+      it 'returns a 401' do
+        delete :destroy
+        expect(response.code).to eq '401'
+      end
+    end
+  end
 end
