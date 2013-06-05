@@ -3,7 +3,6 @@ require 'spec_helper'
 describe UsersController do
   describe 'POST #create' do
     context 'with a new email and password' do
-
       let(:params ) { { user: {email: 'direngezi@parki.com', password: 'iisyan'} } }
 
       it 'creates a new user' do
@@ -39,8 +38,7 @@ describe UsersController do
     context 'without required user parameters and with invalid ones' do
       it 'returns errors on model' do
         post :create, {user: { password: 'hi' }}
-        expect(JSON.parse(response.body)).to eq({"email" => ["can't be blank"],
-                                                 "password" => ["is too short (minimum is 6 characters)"]})
+        expect(JSON.parse(response.body)).to eq({"email" => ["can't be blank"]})
       end
     end
   end
@@ -97,6 +95,65 @@ describe UsersController do
       it 'returns bad request 400' do
         get :validate_credentials, { user: { email: 'yo@lo.com', password: 'abc' } }
         expect(response.code).to eq '400'
+      end
+    end
+  end
+
+  describe 'PUT #update' do
+    let!(:user) { User.create!(email: 'raphaelio@gmail.com', password: 'password') }
+
+    context 'with a valid token' do
+      context 'and valid params' do
+        let(:params) { { token: user.token, user: { email: 'rafiki@gmail.com' } } }
+
+        it 'updates the user' do
+          put :update, params
+          user.reload
+
+          expect(user.email).to eq 'rafiki@gmail.com'
+        end
+
+        it 'returns 200' do
+          put :update, params
+
+          expect(response.code).to eq '200'
+        end
+
+        context 'with an email that already exists' do
+          before(:each) do
+            User.create!(email: 'rafiki@gmail.com', password: 'password')
+          end
+
+          it 'returns the error' do
+            put :update, params
+
+            expect(JSON.parse(response.body)).to eq({"email"=>["has already been taken"]})
+          end
+
+          it 'returns a 400' do
+            put :update, params
+
+            expect(response.code).to eq '400'
+          end
+        end
+      end
+
+      context 'with invalid params' do
+        let(:params) { { token: user.token, user: { abc: 'rafiki@gmail.com' } } }
+
+        it 'raises an error user' do
+          expect {
+            put :update, params
+          }.to raise_error ActiveModel::MassAssignmentSecurity::Error
+        end
+      end
+    end
+
+    context 'with an invalid token' do
+      it 'returns a 401' do
+        put :update
+
+        expect(response.code).to eq '401'
       end
     end
   end

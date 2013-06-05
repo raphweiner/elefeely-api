@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
   before_validation :set_token, on: :create
 
   validates_presence_of :password, on: :create
-  validates :password, length: { minimum: 6 }
   validates :email, presence: true,
                     uniqueness: true
 

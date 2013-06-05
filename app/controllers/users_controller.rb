@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_login, only: [ :me ]
+  before_filter :require_login, only: [ :me, :update ]
 
   def create
     user = User.new(params[:user])
@@ -26,9 +26,11 @@ class UsersController < ApplicationController
     render json: current_user
   end
 
-private
-
-  def send_welcome_email(user)
-    UserMailer.welcome_email(user).deliver
+  def update
+    if current_user.update_attributes(params[:user])
+      render json: current_user
+    else
+      render json: current_user.errors, status: :bad_request
+    end
   end
 end

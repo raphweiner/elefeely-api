@@ -1,6 +1,7 @@
 ElefeelyApi::Application.routes.draw do
 
-  resources :users, except: [ :show ]
+  post '/users' => 'users#create'
+  put '/users' => 'users#update'
   get '/users/me' => 'users#me'
   get '/login' => 'users#validate_credentials'
 

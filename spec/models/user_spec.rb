@@ -19,10 +19,6 @@ describe User do
     expect { subject.password = nil }.to change { subject.valid? }.to false
   end
 
-  it 'requires a password longer than 6 chars' do
-    expect { subject.password = 'hihi' }.to change { subject.valid? }.to false
-  end
-
   it 'sets token upon creation' do
     expect { subject.save }.to change { subject.token }
   end
