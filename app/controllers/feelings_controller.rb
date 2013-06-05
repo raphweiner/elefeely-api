@@ -7,6 +7,7 @@ class FeelingsController < ApplicationController
     feeling = @user.feel(feeling: params[:feeling], source: current_source)
 
     if feeling.save
+      trigger_feelings_pusher(feeling)
       render json: { 'success' => feeling }
     else
       render json: { 'errors' => feeling.errors }, status: :bad_request
@@ -22,6 +23,10 @@ class FeelingsController < ApplicationController
   end
 
 private
+
+  def trigger_feelings_pusher(feeling)
+    Pusher['feelings'].trigger('new_feeling', feeling)
+  end
 
   def find_user
     @user = UserBySourceUid.find(source_name: current_source.name,
