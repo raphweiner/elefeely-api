@@ -8,7 +8,7 @@ class ApiDirectoryController < ApplicationController
                    'current_user_feelings_url' => 'http://elefeely-api.herokuapp.com/feelings/me',
                    'phone_url'                 => 'http://elefeely-api.herokuapp.com/phones/{number}',
                    'login_url'                 => 'http://elefeely-api.herokuapp.com/login',
-                   'verified_phones_url'       => 'http://elefeely-api.herokuapp.com/phones'
+                   'phones_url'                => 'http://elefeely-api.herokuapp.com/phones'
                  }
   end
 end
