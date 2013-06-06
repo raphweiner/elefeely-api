@@ -1,14 +1,14 @@
 class ApiDirectoryController < ApplicationController
   def show
     render json: {
-                   'feelings_url'              => 'http://elefeely-api.herokuapp.com/feelings',
-                   'users_url'                 => 'http://elefeely-api.herokuapp.com/users',
-                   'current_user_url'          => 'http://elefeely-api.herokuapp.com/users/me',
-                   'current_user_phone_url'    => 'http://elefeely-api.herokuapp.com/phones/me',
-                   'current_user_feelings_url' => 'http://elefeely-api.herokuapp.com/feelings/me',
-                   'phone_url'                 => 'http://elefeely-api.herokuapp.com/phones/{number}',
-                   'login_url'                 => 'http://elefeely-api.herokuapp.com/login',
-                   'phones_url'                => 'http://elefeely-api.herokuapp.com/phones'
+                   'feelings_url'              => feelings_url(host: ENV['HOST']),
+                   'users_url'                 => users_url(host: ENV['HOST']),
+                   'current_user_url'          => user_url(host: ENV['HOST']),
+                   'current_user_phone_url'    => user_phone_url(host: ENV['HOST']),
+                   'current_user_feelings_url' => user_feelings_url(host: ENV['HOST']),
+                   'phone_url'                 => phone_url(host: ENV['HOST'], number: 'NUMBER').sub('NUMBER', '{number}'),
+                   'login_url'                 => login_url(host: ENV['HOST']),
+                   'phones_url'                => phones_url(host: ENV['HOST'])
                  }
   end
 end
