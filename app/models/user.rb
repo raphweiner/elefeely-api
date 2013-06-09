@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   attr_accessible :email,
                   :password
 
-  has_one   :phone
-  has_many  :feelings
+  has_one   :phone, dependent: :destroy
+  has_many  :feelings, dependent: :destroy
 
   before_validation :set_token, on: :create
 
