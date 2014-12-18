@@ -10,7 +10,7 @@ class RequestProvenance
   end
 
   def authorized?
-    source && valid_signature? && valid_timestamp? && valid_source_name?
+    source && valid_signature? && valid_timestamp?
   end
 
 private
@@ -35,9 +35,5 @@ private
 
   def valid_timestamp?
     (Time.now.to_i - params[:timestamp].to_i) < 10
-  end
-
-  def valid_source_name?
-    source.name == 'twilio'
   end
 end

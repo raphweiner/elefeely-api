@@ -29,17 +29,6 @@ describe RequestProvenance do
     end
 
     context 'sad path' do
-      context 'with source other than twilio' do
-        before(:all) do
-          @source = Source.create!(name: 'twitter')
-          instantiate_request
-        end
-
-        it 'returns false' do
-          expect(RequestProvenance.new(@params)).to_not be_authorized
-        end
-      end
-
       context 'with incorrect signature' do
         before(:all) do
           @source = Source.create!(name: 'twilio')
