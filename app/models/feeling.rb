@@ -9,7 +9,6 @@ class Feeling < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :source_id, presence: true
-  validates :source_event_id, presence: true
   validates :score, presence: true,
                     inclusion: { in: (1..5) }
 end

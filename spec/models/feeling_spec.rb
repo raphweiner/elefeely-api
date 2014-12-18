@@ -15,10 +15,6 @@ describe Feeling do
     expect { subject.source = nil }.to change { subject.valid? }.to false
   end
 
-  it 'requires an source_event_id when source is twilio' do
-    expect { subject.source_event_id = nil }.to change { subject.valid? }.to false
-  end
-
   it 'requires a score' do
     expect { subject.score = nil }.to change { subject.valid? }.to false
   end
