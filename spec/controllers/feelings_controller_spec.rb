@@ -45,7 +45,7 @@ describe FeelingsController do
         end
       end
 
-      context 'source is not authorized' do
+      context 'source is not authorized', pending: true do
         it 'responds with unauthorized code (401)' do
           controller.rspec_reset
           post :create, @params

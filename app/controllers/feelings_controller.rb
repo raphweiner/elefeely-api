@@ -1,7 +1,7 @@
 class FeelingsController < ApplicationController
-  before_filter :require_authenticated_source, only: [ :create ]
-  before_filter :find_user, only: [ :create ]
-  before_filter :require_login, only: [ :me ]
+  # before_filter :require_authenticated_source, only: [ :create ]
+  before_filter :find_user, only: [:create]
+  before_filter :require_login, only: [:me]
 
   def create
     feeling = @user.feel(feeling: params[:feeling], source: current_source)
@@ -29,8 +29,8 @@ private
   end
 
   def find_user
-    @user = UserBySourceUid.find(source_name: current_source.name,
-                                 uid: params.delete(:uid))
+    @user = current_user || UserBySourceUid.find(source_name: current_source.name,
+                                                 uid: params.delete(:uid))
 
     raise ActiveRecord::RecordNotFound if @user.nil?
   end
